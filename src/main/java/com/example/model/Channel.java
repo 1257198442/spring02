@@ -10,7 +10,16 @@ private String title;
 private String quality;
 private String url;
 private List<Comment> comments;
+private String cover;
 
+
+
+public String getCover() {
+	return cover;
+}
+public void setCover(String cover) {
+	this.cover = cover;
+}
 /*
  * a
  * */

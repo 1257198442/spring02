@@ -92,8 +92,12 @@ public Channel createChannel(Channel c) {
 			   saved.getComments().addAll(c.getComments());	
 		}else {
 			saved.setComments(c.getComments());
-		}
+		}		
 	}
+		if(c.getCover()!=null) {
+			saved.setComments(c.getComments());
+			
+		}
 		return repo.save(saved);
 	}
 	public List<Channel> searchByQuality(String quality){
