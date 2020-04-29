@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.service.ChannelService;
 import com.example.model.Channel;
+import com.example.model.Comment;
 @RestController
 @RequestMapping("/channel")
 public class ChannelConterller {
@@ -81,10 +82,21 @@ public class ChannelConterller {
 	public List<Channel> getChannelsPage(@PathVariable int page){
 		return service.findChannelsPage(page);
 	}
-	
-	
-	
-	
+	@PostMapping("/{channelId}/comment")
+	public Channel addComment(@PathVariable String channelId,@RequestBody Comment comment) {
+		Channel result=null;
+//		Logger.debug("即将评论频道："+channelId+",评论对象："+comment);
+		result=service.addcomment(channelId,comment);
+		
+		return result;
+	}
+	@GetMapping("/{channelId}/hotcomments")
+	public List<Comment>hotComments(@PathVariable String channelId){
+		List<Comment> result=null;
+		result=service.hotComment(channelId);
+		return result;
+		
+	}
 	
 	
 	

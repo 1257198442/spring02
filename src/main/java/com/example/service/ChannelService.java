@@ -1,5 +1,6 @@
 package com.example.service;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.dao.ChannelRepository;
 import com.example.model.Channel;
+import com.example.model.Comment;
 @Service
 public class ChannelService {
 	@Autowired
@@ -116,6 +118,46 @@ public Channel createChannel(Channel c) {
 		Page<Channel>p=repo.findAll(PageRequest.of(page,3));
 		return p.toList();
 	}
+	
+	public Channel addcomment(String channelId, Comment comment) {
+		// TODO Auto-generated method stub
+		Channel result=null;
+		Channel saved=getChannel(channelId);
+		if(null!=saved) {
+			saved.getComments().add(comment);
+			result=repo.save(saved);
+		}
+		return result;
+		
+	}
+	public List<Comment> hotComment(String channelId) {
+		// TODO Auto-generated method stub
+		List<Comment> result=null;
+		Channel saved=getChannel(channelId);
+		if(saved!=null) {
+		result=saved.getComments();
+		result.sort(new Comparator<Comment>(){
+				@Override
+				public int compare(Comment o1,Comment o2) {
+					int re=0;
+					if(o1.getStar() < o2.getStar()) {
+						re=1;
+					}else if (o1.getStar() > o2.getStar()) {
+						re=-1;
+					}
+					return re;
+				}
+				
+			});
+			if(result.size()>3) {
+				result=result.subList(0, 3);
+				
+			}else {
+				
+			}
+			}
+			return result;
+		}
 }
 
 

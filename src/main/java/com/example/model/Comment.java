@@ -2,11 +2,15 @@ package com.example.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Comment {
  private String author;
  private String content;
+ @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
  private LocalDateTime dt=LocalDateTime.now();
- private int star;
+
+ private int star=0;
 public String getAuthor() {
 	return author;
 }
@@ -25,6 +29,7 @@ public LocalDateTime getDt() {
 public void setDt(LocalDateTime dt) {
 	this.dt = dt;
 }
+
 public int getStar() {
 	return star;
 }
